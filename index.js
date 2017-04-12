@@ -9,9 +9,9 @@ config.argv()
   .env()
   .file({ file: 'config.json' })
   .defaults({
-    'adminChannel':    'music-admin',
-    'standardChannel': 'music',
-    'maxVolume':       '75',
+    'adminChannel':    'sonos-admin',
+    'standardChannel': 'sonos',
+    'maxVolume':       '100',
     'market':          'US',
     'blacklist':       []
   });
@@ -608,10 +608,9 @@ function _append(input, channel) {
                     // Ok, lets start again..  NO Flush
                             //Add the track to playlist...
 
-                            // Old version..  New is supposed to fix 500 problem...
-                            // sonos.addSpotifyQueue(spid, function (err, res) {
-
-                            sonos.addSpotify(spid, function (err, res) {
+                            
+                            sonos.addSpotifyQueue(spid, function (err, res) {
+                            //sonos.addSpotify(spid, function (err, res) { // this one gives error 500
                                 var message = '';
                                 if(res) {
                                     var queueLength = res[0].FirstTrackNumberEnqueued;
@@ -724,10 +723,8 @@ function _add(input, channel) {
                             slack.sendMessage('Clean slate..  Let´s make it better this time!!', channel.id);
                             //Then add the track to playlist...
 
-                            // Old version..  New is supposed to fix 500 problem...
-                            // sonos.addSpotifyQueue(spid, function (err, res) {
-
-                            sonos.addSpotify(spid, function (err, res) {
+                            sonos.addSpotifyQueue(spid, function (err, res) {
+                            //sonos.addSpotify(spid, function (err, res) { // this one gives error 500
                                 var message = '';
                                 if(res) {
                                     var queueLength = res[0].FirstTrackNumberEnqueued;
@@ -755,10 +752,8 @@ function _add(input, channel) {
                 } else if (state === 'playing') {
                     //Add the track to playlist...
 
-                    // Old version..  New is supposed to fix 500 problem...
-                    // sonos.addSpotifyQueue(spid, function (err, res) {
-
-                    sonos.addSpotify(spid, function (err, res) {
+                    sonos.addSpotifyQueue(spid, function (err, res) {
+                    //sonos.addSpotify(spid, function (err, res) { // this gives error 500
                         var message = '';
                         if(res) {
                             var queueLength = res[0].FirstTrackNumberEnqueued;
